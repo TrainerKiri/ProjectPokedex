@@ -19,7 +19,7 @@ fighting: '#E6E0D4',
 normal: '#F5F5F5'
 }
 
-const mainTypes = Object.keys(colors);
+const mainTypes = Object.keys(colors)
 
 
 const fetchPokemons = async() => {
@@ -33,9 +33,9 @@ const fetchPokemons = async() => {
 
 
 const getPokemons = async(id) => {
-    const url = 'https://pokeapi.co/api/v2/pokemon/$(id)';
+    const url = 'https://pokeapi.co/api/v2/pokemon/${id}';
     const resp = await fetch(url)
-    const data = await resp.JSON()
+    const data = await resp.json()
     console.log(data)
    
     
