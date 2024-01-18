@@ -41,8 +41,18 @@ const getPokemons = async(id) => {
 
 const createPokemonCard = (poke) => {
     const card = document.createElement('div')
-    card.classlist.add('')
+    card.classList.add("pokes")
 }
 
+const = pokes.names[0].toUpperCase() + pokeCount.name.slice(1)
+
+const id = poke.id.toString().padStart(3 , '0')
+
+const poketypes = poke.types.map(type => type.type.name)
+const type = mainTypes.find(type => poketypes.indexOf(type) > -1)
+
+const color = colors[type]
+
+card.Style.backgroundColor = color
 
 fetchPokemons();
