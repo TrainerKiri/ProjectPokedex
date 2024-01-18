@@ -44,7 +44,7 @@ const createPokemonCard = (poke) => {
     card.classList.add("pokes")
 }
 
-const = pokes.names[0].toUpperCase() + pokeCount.name.slice(1)
+const = pokes.names[0].toUpperCase() + poke.name.slice(1)
 
 const id = poke.id.toString().padStart(3 , '0')
 
@@ -54,5 +54,23 @@ const type = mainTypes.find(type => poketypes.indexOf(type) > -1)
 const color = colors[type]
 
 card.Style.backgroundColor = color
+
+
+
+const pokemonInnerHTML = '
+ class="imagens">
+        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${poke.id}.png" alt="${name}">       
+    </div>
+      <div class="infos">
+        <span class="number">#${id}</span>
+        <h3 class="nome">${name}</h3>
+        <small class="type">type: <span>${type}</span></small>  
+      </div>
+
+
+card.innerHTML = pokemonInnerHTML
+
+pokeContainer.appendChild(card)
+
 
 fetchPokemons();
