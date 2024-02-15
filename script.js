@@ -20,12 +20,8 @@ const mainTypes = Object.keys(colors);
 const pokemonsPerPage = 20; // Define o número de Pokémon por página
 let currentPage = 1; // Inicializa a página atual como 1
 
-const paginatePokemons = (page) => {
-    const startIndex = (page - 1) * pokemonsPerPage;
-    const endIndex = startIndex + pokemonsPerPage;
-    return Array.from({ length: pokemonsPerPage }, (_, index) => startIndex + index + 1)
-           .filter(id => id <= pokeCount);
-};
+
+
 
 const fetchPokemons = async(page) => {
     const pokemonIds = paginatePokemons(page);
@@ -46,3 +42,52 @@ const createPokemonCard = (poke) => {
     card.classList.add("pokes");
 
     const name = poke.name.charAt(0).toUpperCase() + poke.name.slice(1);
+    const id = poke.id.toString().padStart(3, '0');
+    const type = poke.types.map(type => type.type.name).find(type => mainTypes.includes(type));
+    const color = colors[type];
+
+    card.style.backgroundColor = color;
+
+    const pokemonInnerHTML = `
+    <div class="imagens">
+        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${poke.id}.png" alt="${name}">
+    </div>
+    <div class="infos">
+        <span class="number">#${id}</span>
+        <h3 class="nome">${name}</h3>
+        <small class="type">Type: <span>${type}</span></small>
+    </div>
+    `;
+
+    card.innerHTML = pokemonInnerHTML;
+
+    pokeContainer.appendChild(card);
+};
+
+const previousPage = () => {
+    if (currentPage > 1) {
+        currentPage--;
+        fetchPokemons(currentPage);
+    }
+};
+
+const nextPage = () => {
+    const totalPages = Math.ceil(pokeCount / pokemonsPerPage);
+    if (currentPage < totalPages) {
+        currentPage++;
+        fetchPokemons(currentPage);
+    }
+};
+
+const searchPokemon = () => {
+    const searchTerm = document.querySelector("#searchInput").value.toLowerCase();
+    const pokemonId = parseInt(searchTerm);
+    if (!isNaN(pokemonId) && pokemonId >= 1 && pokemonId <= pokeCount) {
+        getPokemons(pokemonId);
+    } else {
+        alert("Pokemon não encontrado!");
+    }
+};
+
+// Atualizar a página inicialmente
+fetchPokemons(currentPage);
