@@ -2,7 +2,7 @@ const pokeContainer = document.querySelector("#pokeContainer");
 const pokeCount = 1000;
 const colors = {
     fire: '#FDDFDF',
-    grass: '#DEFDEO',
+    grass: '#6bd14f',
     electric: '#FCF7DE',
     water: '#DEF3FD',
     ground: '#f4e7da',
