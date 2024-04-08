@@ -1,5 +1,5 @@
 const pokeContainer = document.querySelector("#pokeContainer");
-const pokeCount = 151;
+const pokeCount = 1000;
 const colors = {
     fire: '#FDDFDF',
     grass: '#DEFDEO',
@@ -11,7 +11,7 @@ const colors = {
     poison: '#98d7a5',
     bug: '#f8d5a3',
     dragon: '#97b3e6',
-    psychic: '#eaeda1',
+    psychic: '#87007d',
     flying: '#F5F5F5',
     fighting: '#E6E0D4',
     normal: '#F5F5F5'
@@ -20,17 +20,13 @@ const mainTypes = Object.keys(colors);
 const pokemonsPerPage = 20; // Define o número de Pokémon por página
 let currentPage = 1; // Inicializa a página atual como 1
 
-
-
-
-const fetchPokemons = async(page) => {
-    const pokemonIds = paginatePokemons(page);
-    for (const id of pokemonIds) {
+const fetchAllPokemons = async () => {
+    for (let id = 1; id <= pokeCount; id++) {
         await getPokemons(id);
     }
 };
 
-const getPokemons = async(id) => {
+const getPokemons = async (id) => {
     const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
     const resp = await fetch(url);
     const data = await resp.json();
@@ -64,21 +60,6 @@ const createPokemonCard = (poke) => {
     pokeContainer.appendChild(card);
 };
 
-const previousPage = () => {
-    if (currentPage > 1) {
-        currentPage--;
-        fetchPokemons(currentPage);
-    }
-};
-
-const nextPage = () => {
-    const totalPages = Math.ceil(pokeCount / pokemonsPerPage);
-    if (currentPage < totalPages) {
-        currentPage++;
-        fetchPokemons(currentPage);
-    }
-};
-
 const searchPokemon = () => {
     const searchTerm = document.querySelector("#searchInput").value.toLowerCase();
     const pokemonId = parseInt(searchTerm);
@@ -90,4 +71,4 @@ const searchPokemon = () => {
 };
 
 // Atualizar a página inicialmente
-fetchPokemons(currentPage);
+fetchAllPokemons();
